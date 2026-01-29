@@ -1,9 +1,22 @@
+let products=[]
+let container=document.getElementById("main");
 fetch("https://dummyjson.com/products")
     .then(response=> response.json()) 
     .then(data=>{ 
-        let products=data.products;
-        let container=document.getElementById("main");
-        products.forEach(product => {
+        products=data.products;
+        display(products);
+    })
+    .catch(error=>{
+        console.log("Error: ",error);
+    });
+
+function display(products){
+            container.innerHTML="";
+            if(products.length==0){
+                container.innerHTML="<h2>No product available<h2>";
+                return;
+            }
+            products.forEach(product => {
             let card=document.createElement("div");
             card.className="card";
             let img=document.createElement("img")
@@ -17,7 +30,21 @@ fetch("https://dummyjson.com/products")
             card.appendChild(price);
             container.appendChild(card);
         });
-    })
-    .catch(error=>{
-        console.log("Error: ",error);
-    });
+}
+// by using button
+// let btn=document.getElementById("btn")
+// btn.addEventListener("click",()=>{
+//     let val=document.getElementById("box").value.toLowerCase();
+//     let filterProducts=products.filter((product)=>{
+//        return product.title.toLowerCase().includes(val);
+//     },0)
+//     display(filterProducts);
+// })
+// by using input
+document.getElementById("box").addEventListener("input",(e)=>{
+    let val=e.target.value.toLowerCase();
+    let filterProducts=products.filter((product)=>{
+       return product.title.toLowerCase().includes(val);
+    },0)
+    display(filterProducts);
+})
