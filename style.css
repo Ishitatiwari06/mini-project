@@ -1,0 +1,10 @@
+#main{
+    display: grid;
+    grid-template-columns: repeat(3,70vh);
+    gap: 20px;
+}
+.card{
+    border: 2px solid;
+    border-radius: 3px;
+    text-align: center;
+}
