@@ -152,7 +152,7 @@ function renderPage(page){
         filtered.unshift({ id: p.id, title: p.title, thumb: p.thumbnail || (p.images && p.images[0] || ''), time: Date.now() });
         localStorage.setItem('viewedProducts', JSON.stringify(filtered.slice(0,50)));
       }catch(e){ console.warn('view record failed', e); }
-      window.location.href = `product-details.html?id=${p.id}`;
+      window.location.href = `product_details.html?id=${p.id}`;
     });
   });
 }
