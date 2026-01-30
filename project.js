@@ -29,6 +29,10 @@ function display(products){
             card.appendChild(name);
             card.appendChild(price);
             container.appendChild(card);
+            card.addEventListener("click",()=>{
+                window.location.href=`product_details.html?id=${product.id}`
+            })
+            container.appendChild(card);
         });
 }
 // by using button
@@ -82,6 +86,7 @@ search.addEventListener("input",()=>{
             search.value = item.query;
             btn.click();          // reuse search logic
             suggestionBox.innerHTML = "";
+            suggestionBox.appendChild(div)
         });
     })
 })
