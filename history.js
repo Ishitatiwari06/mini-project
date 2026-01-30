@@ -1,42 +1,28 @@
-let history = JSON.parse(localStorage.getItem("searchHistory")) || []
-let container = document.getElementById("historyList")
+let history = JSON.parse(localStorage.getItem("viewedProducts")) || [];
+let container = document.getElementById("historyList");
 
-history.sort((a,b) => b.time - a.time);
+history.sort((a, b) => b.time - a.time);
 
 history.forEach(item => {
-    let div = document.createElement("div");
-    div.className = "history-item";
+  let div = document.createElement("div");
+  div.className = "history-item";
 
-    let dateObj = new Date(item.time);
+  let date = new Date(item.time).toLocaleString("en-IN");
 
-    let formattedDate = dateObj.toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
-    });
+  div.innerHTML = `
+    <strong>${item.title}</strong>
+    <div class="date">${date}</div>
+  `;
 
-    let formattedTime = dateObj.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-    });
+  div.addEventListener("click", () => {
+  window.location.href =
+    `product_details.html?id=${item.id}&from=history`;
+});
 
-    div.innerHTML = `
-    <strong>${item.query}</strong>
-    <div class="date">${formattedDate}</div>
-    <span class="time">${formattedTime}</span>
-    `;
-    
+  container.appendChild(div);
+});
 
-    div.addEventListener("click", () => {
-        window.location.href = `search.html?q=${encodeURIComponent(item.query)}`
-    });
-
-    container.appendChild(div)
-})
-
-// Clear Search History
-function clearHistory(){
-    localStorage.removeItem('searchHistory');
-    container.innerHTML = "";
+function clearHistory() {
+  localStorage.removeItem("viewedProducts");
+  container.innerHTML = "";
 }
