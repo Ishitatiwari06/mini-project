@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search History</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         * {
   margin: 0;
@@ -105,11 +106,15 @@ body {
 <body>
     <div class="history-header">
         <h1>Your Search History</h1>
-        <button id="clear" onclick={clearHistory()}>Clear Search History</button>
+        <button id="clear">Clear Search History</button>
+        <button id="clearViewed">Clear Viewed History</button>
+
        <a href="index.html"> <button  id="btn2">back</button> </a>
     </div>
     <br><br>
     <div id="historyList"></div>
+    <h2 class="section-title">Recently Viewed Products</h2>
+    <div id="viewedList"></div>
 
 
 </body>
