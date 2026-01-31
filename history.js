@@ -49,5 +49,53 @@ function openProductFromSearch(query) {
 
     container.appendChild(div);
   });
+const clearBtn = document.getElementById("clear");
+
+clearBtn.addEventListener("click", () => {
+  if (!confirm("Clear search history?")) return;
+
+  localStorage.removeItem("searchHistory");
+  container.innerHTML = "<p>No search history found</p>";
+});
+
+  // ---------- VIEWED PRODUCTS ----------
+const viewedContainer = document.getElementById("viewedList");
+const viewedProducts = JSON.parse(localStorage.getItem("viewedProducts")) || [];
+
+if (viewedProducts.length === 0) {
+  viewedContainer.innerHTML = "<p>No products viewed yet</p>";
+} else {
+  viewedProducts.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "viewed-card";
+
+    const time = new Date(item.time).toLocaleString("en-IN");
+
+    card.innerHTML = `
+      <img src="${item.thumbnail}" alt="${item.title}">
+      <h4>${item.title}</h4>
+      <span>Viewed on ${time}</span>
+    `;
+
+    card.addEventListener("click", () => {
+      window.location.href = `product_details.html?id=${item.id}`;
+    });
+
+    viewedContainer.appendChild(card);
+    
+  });
+}
+// ---------- CLEAR VIEWED HISTORY ----------
+const clearViewedBtn = document.getElementById("clearViewed");
+
+if (clearViewedBtn) {
+  clearViewedBtn.addEventListener("click", () => {
+    if (!confirm("Clear viewed products history?")) return;
+
+    localStorage.removeItem("viewedProducts");
+    viewedContainer.innerHTML = "<p>No products viewed yet</p>";
+  });
+}
+
 
 });
