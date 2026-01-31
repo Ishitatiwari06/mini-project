@@ -3,7 +3,7 @@ let container=document.getElementById("main");
 
 let filteredProducts = [];
 let currentPage = 1;
-const itemsPerPage = 8;
+const itemsPerPage = 6;
 
 
 fetch("https://dummyjson.com/products")
