@@ -34,7 +34,7 @@ fetch(`https://dummyjson.com/products/${productId}`)
     document.getElementById("title").innerText = product.title;
     document.getElementById("thumbnail").src = product.thumbnail;
     document.getElementById("description").innerText = product.description;
-    document.getElementById("price").innerText = "₹ " + product.price;
+    document.getElementById("price").innerText = "$ " + product.price;
     document.getElementById("availability").innerText = product.available ? "In Stock" : "Out of Stock";
     let details=document.getElementById("details");
     details.innerHTML=`
