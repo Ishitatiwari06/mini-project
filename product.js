@@ -1,7 +1,30 @@
 let params = new URLSearchParams(window.location.search);
 let productId = params.get("id");
+let fromHistory = params.get("from") === "history";
 
 console.log("Product ID:", productId);
+function saveToHistory(product) {
+  let history = JSON.parse(localStorage.getItem("viewedProducts")) || [];
+
+  // remove duplicate if already exists
+  history = history.filter(item => item.id !== product.id);
+
+  // add to top
+  history.unshift({
+    id: product.id,
+    title: product.title,
+    thumbnail: product.thumbnail,
+    price: product.price,
+    time: Date.now()
+  });
+
+  // limit to last 10 viewed products
+  if (history.length > 10) {
+    history.pop();
+  }
+
+  localStorage.setItem("viewedProducts", JSON.stringify(history));
+}
 
 fetch(`https://dummyjson.com/products/${productId}`)
   .then(res => res.json())
@@ -27,10 +50,16 @@ fetch(`https://dummyjson.com/products/${productId}`)
     <li><b>Shipping Information:</b> ${product.shippingInformation}</li>
     <li><b>Minimum Order Quantity:</b> ${product.minimumOrderQuantity}</li>
     `;
-    document.getElementById("addToCart")
-        .addEventListener("click", function () {
-          alert(`${product.title} added to cart 🛒`);
-        });
+    // saveToHistory(product)
+    // productCard.addEventListener("click", () => {
+    // saveToHistory(product);
+    // window.location.href = `product_details.html?id=${product.id}`;
+    
+// });
+    if (!fromHistory) {
+      saveToHistory(product);
+    }
+
     })
     .catch(err => {
     console.log("Error fetching product data:", err);
